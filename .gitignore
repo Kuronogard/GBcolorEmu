@@ -1,0 +1,9 @@
+# build directory
+build/
+
+
+# temp files
+*~
+
+# qtcreator files
+*.user
