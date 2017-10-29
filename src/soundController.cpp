@@ -1,4 +1,4 @@
-#include "SoundController.hpp"
+#include "soundController.hpp"
 
 namespace gbcoloremu
 {

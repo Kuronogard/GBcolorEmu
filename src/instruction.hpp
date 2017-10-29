@@ -1,7 +1,7 @@
 #ifndef __INSTRUCTION_H
 #define __INSTRUCTION_H
 
-#include "MemoryController.hpp"
+#include "memoryController.hpp"
 
 
 namespace gbcoloremu

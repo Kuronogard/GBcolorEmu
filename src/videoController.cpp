@@ -1,4 +1,4 @@
-#include "VideoController.hpp"
+#include "videoController.hpp"
 
 namespace gbcoloremu
 {

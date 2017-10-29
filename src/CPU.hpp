@@ -2,7 +2,7 @@
 #ifndef __CPU_HPP
 #define __CPU_HPP
 
-#include "MemoryController.hpp"
+#include "memoryController.hpp"
 
 namespace gbcoloremu
 {

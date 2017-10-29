@@ -1,6 +1,6 @@
-#include "VideoController.hpp"
-#include "SoundController.hpp"
-#include "MemoryController.hpp"
+#include "videoController.hpp"
+#include "soundController.hpp"
+#include "memoryController.hpp"
 #include "CPU.hpp"
 
 int main(int argc, char *argv[])

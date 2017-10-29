@@ -1,5 +1,5 @@
 
-#include "MemoryController.hpp"
+#include "memoryController.hpp"
 
 namespace gbcoloremu
 {
