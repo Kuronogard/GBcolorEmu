@@ -22,7 +22,7 @@ GbaEmuCpu::~GbaEmuCpu()
 bool GbaEmuCpu::run()
 {
     memValue8_t opcode;
-    Instruction currentInstruction;
+    Instruction* currentInstruction;
     uint8_t numParamBytes;
     memValue16_t param;
     bool executeSuccess;
@@ -40,11 +40,11 @@ bool GbaEmuCpu::run()
         currentInstruction = decode(opcode);
 
         // wait the number of delay cycles
-        delayCycles = currentInstruction.numDelayCycles();
+        delayCycles = currentInstruction->numDelayCycles();
         // wait(delayCycles)
 
         // read the instruction params and update PC
-        numParamBytes = currentInstruction.numParamBytes();
+        numParamBytes = currentInstruction->numParamBytes();
         switch (numParamBytes)
         {
         case 2:
@@ -63,7 +63,7 @@ bool GbaEmuCpu::run()
         }
 
         // execute the instruction
-        executeSuccess = currentInstruction.execute(registers, memoryController, param);
+        executeSuccess = currentInstruction->execute(registers, memoryController, param);
         if (!executeSuccess)
         {
             return false;
@@ -74,7 +74,11 @@ bool GbaEmuCpu::run()
 }
 
 
+Instruction * GbaEmuCpu::decode(memValue8_t opcode)
+{
 
+    return NULL;
+}
 
 
 } /* namespace gbcoloremu */

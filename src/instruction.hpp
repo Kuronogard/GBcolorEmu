@@ -3,17 +3,18 @@
 
 #include "memoryController.hpp"
 #include "CPU.hpp"
+#include "registerBank.hpp"
+#include <string>
 
 
 namespace gbcoloremu
 {
 
+
 class Instruction
 {
 public:
     Instruction();
-    ~Instruction();
-
 
     virtual bool execute(registerBank &registers, MemoryController &memory, memValue16_t param) = 0;
 

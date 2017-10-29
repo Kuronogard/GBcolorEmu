@@ -16,10 +16,8 @@ using memValue16_t = uint16_t;
 
 class Cartridge {
 public:
-    Cartridge();
-
-    vector<memValue8_t> switchableROM16k;    // 4000 - 7FFF
-    vector<memValue8_t> ROM16;               // 0000 - 3FFF
+    vector<memValue8_t> _switchableROM16k;    // 4000 - 7FFF
+    vector<memValue8_t> _ROM16;               // 0000 - 3FFF
 };
 
 

@@ -40,12 +40,12 @@ memValue8_t MemoryController::read(memAddr_t address)
     if (IN_ADDR_SPACE(address, ROM16))
     {
         address -= ADDR_SPACE_DISPL(ROM16);
-        return _ROM16[address];
+        return _cartridge._ROM16[address];
     }
     else if (IN_ADDR_SPACE(address, switchableROM16k))
     {
         address -= ADDR_SPACE_DISPL(switchableROM16k);
-        return _switchableROM16k[address];
+        return _cartridge._switchableROM16k[address];
     }
     else if (IN_ADDR_SPACE(address, videoRAM8k))
     {
@@ -92,12 +92,12 @@ bool MemoryController::write(memAddr_t address, memValue8_t value)
     if (IN_ADDR_SPACE(address, ROM16))
     {
         address -= ADDR_SPACE_DISPL(ROM16);
-        _ROM16[address] = value;
+        _cartridge._ROM16[address] = value;
     }
     else if (IN_ADDR_SPACE(address, switchableROM16k))
     {
         address -= ADDR_SPACE_DISPL(switchableROM16k);
-        _switchableROM16k[address] = value;
+        _cartridge._switchableROM16k[address] = value;
     }
     else if (IN_ADDR_SPACE(address, videoRAM8k))
     {
