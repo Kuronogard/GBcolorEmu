@@ -1,5 +1,5 @@
-set(SOURCES main.cpp MemoryController.cpp VideoController.cpp SoundController.cpp CPU.cpp)
-set(HEADERS MemoryController.hpp VideoController.hpp SoundController.hpp CPU.hpp)
+set(SOURCES main.cpp memoryController.cpp videoController.cpp soundController.cpp CPU.cpp)
+set(HEADERS memoryController.hpp videoController.hpp soundController.hpp CPU.hpp instruction.hpp)
 
 
 add_executable(${PROJECT_NAME} ${SOURCES} ${HEADERS})
