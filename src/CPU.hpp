@@ -2,9 +2,17 @@
 #ifndef __CPU_HPP
 #define __CPU_HPP
 
+#include <iostream>
+#include <chrono>
+
 #include "memoryController.hpp"
 #include "registerBank.hpp"
 #include "instruction.hpp"
+
+
+#define DEFAULT_FREQ_MHZ (4.194304)
+
+#define DEFAULT_PERIOD_NS (1000 * 1./DEFAULT_FREQ_MHZ)
 
 namespace gbcoloremu
 {
@@ -22,11 +30,14 @@ public:
 
     bool run();
 
+    friend std::ostream &operator<<(std::ostream &os, const GbaEmuCpu& obj);
+
 private:
 
     uint8_t delayCycles;
+    long int cyclePeriod_ns = DEFAULT_PERIOD_NS;
 
-    registerBank registers;
+    RegisterBank registers;
     MemoryController memoryController;
 
     Instruction *instructions[256] =
@@ -37,7 +48,7 @@ private:
         NULL,   // 0x03
         NULL,   // 0x04
         NULL,   // 0x05
-        NULL,   // 0x06
+        new Instr_LDBn(),   // 0x06
         NULL,   // 0x07
         NULL,   // 0x08
         NULL,   // 0x09
@@ -45,7 +56,7 @@ private:
         NULL,   // 0x0B
         NULL,   // 0x0C
         NULL,   // 0x0D
-        NULL,   // 0x0E
+        new Instr_LDCn(),   // 0x0E
         NULL,   // 0x0F
         NULL,   // 0x10
         NULL,   // 0x11
@@ -54,7 +65,7 @@ private:
         NULL,   // 0x14
         NULL,   // 0x15
         NULL,   // 0x16
-        NULL,   // 0x16
+        new Instr_LDDn(),   // 0x16
         NULL,   // 0x17
         NULL,   // 0x18
         NULL,   // 0x19

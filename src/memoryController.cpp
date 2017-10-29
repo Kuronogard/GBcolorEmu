@@ -1,5 +1,6 @@
 
 #include "memoryController.hpp"
+#include <iostream>
 
 namespace gbcoloremu
 {
@@ -65,7 +66,7 @@ memValue8_t MemoryController::read(memAddr_t address)
     else if (IN_ADDR_SPACE(address, internalRAM8kEcho))
     {
         address -= ADDR_SPACE_DISPL(internalRAM8kEcho);
-        return _internalRAM8kEcho[address];
+        return _internalRAM8k[address];
     }
     else if (IN_ADDR_SPACE(address, spriteAttrMemory))
     {
@@ -80,6 +81,7 @@ memValue8_t MemoryController::read(memAddr_t address)
     else
     {
         // BAD address
+        std::cout << "BAB read address" << std::endl;
     }
 
 
@@ -117,7 +119,7 @@ bool MemoryController::write(memAddr_t address, memValue8_t value)
     else if (IN_ADDR_SPACE(address, internalRAM8kEcho))
     {
         address -= ADDR_SPACE_DISPL(internalRAM8kEcho);
-        _internalRAM8kEcho[address] = value;
+        _internalRAM8k[address] = value;
     }
     else if (IN_ADDR_SPACE(address, spriteAttrMemory))
     {
@@ -138,5 +140,10 @@ bool MemoryController::write(memAddr_t address, memValue8_t value)
     return true;
 }
 
+bool MemoryController::configCartridge(Cartridge& cartridge)
+{
+    _cartridge = cartridge;
+    return true;
+}
 
 } /* namespace gbcoloremu */

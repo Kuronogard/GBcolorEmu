@@ -1,13 +1,15 @@
 #ifndef __REGISTERBANK_HPP
 #define __REGISTERBANK_HPP
 
+#include <iostream>
+
 namespace gbcoloremu
 {
 
 using regValue_t = uint8_t;
 using doubleRegValue_t = uint16_t;
 
-class registerBank
+class RegisterBank
 {
 public:
     // Posible 16bit pairings  (15..8 | 7..0)
@@ -25,7 +27,18 @@ public:
     regValue_t A, B, C, D, E, F;
     regValue_t H, L;
     doubleRegValue_t SP, PC;
+
+    friend std::ostream &operator<<(std::ostream &os, const RegisterBank &obj)
+    {
+        os << "A:" << unsigned(obj.A) << "  F:" << unsigned(obj.F) << endl;
+        os << "B:" << unsigned(obj.B) << "  C:" << unsigned(obj.C) << endl;
+        os << "D:" << unsigned(obj.D) << "  E:" << unsigned(obj.E) << endl;
+        os << "H:" << unsigned(obj.H) << "  L:" << unsigned(obj.L) << endl;
+        os << "SP:" << unsigned(obj.SP) << "  PC:" << unsigned(obj.PC) << endl;
+        return os;
+    }
 };
+
 
 } /* namespace gbcoloremu */
 

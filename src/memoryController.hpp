@@ -7,6 +7,11 @@
 
 using namespace std;
 
+#define SIZE_8KB  (8192)   // 2^3 * 2^10
+#define SIZE_16KB (16384)  // 2^4 * 2^10
+#define SIZE_OAM  (160)
+#define SIZE_RAM  (127)
+
 namespace gbcoloremu
 {
 
@@ -16,8 +21,9 @@ using memValue16_t = uint16_t;
 
 class Cartridge {
 public:
-    vector<memValue8_t> _switchableROM16k;    // 4000 - 7FFF
-    vector<memValue8_t> _ROM16;               // 0000 - 3FFF
+    memValue8_t _switchableROM16k[SIZE_16KB];    // 4000 - 7FFF
+    memValue8_t _ROM16[SIZE_16KB];               // 0000 - 3FFF
+
 };
 
 
@@ -67,20 +73,20 @@ private:
     };
 */
 
-    memValue8_t _interruptEnableReg;          // FFFF
+    memValue8_t _interruptEnableReg;            // FFFF
 
     // Internal memory
-    vector<memValue8_t> _internalRAM;         // FF80 - FFFE
+    memValue8_t _internalRAM[SIZE_RAM];         // FF80 - FFFE
 
     // Empty but unusable for I/O               FF4C - FF7F
     // I/O ports                                FF00 - FF4B
     // Empty but unusable for I/O               FEA0 - FEFF
 
-    vector<memValue8_t> _spriteAttrMemory;    // FE00 - FE9F
-    vector<memValue8_t> _internalRAM8kEcho;   // E000 - FDFF
-    vector<memValue8_t> _internalRAM8k;       // C000 - DFFF
-    vector<memValue8_t> _switchableRAM8k;     // A000 - BFFF
-    vector<memValue8_t> _videoRAM8k;          // 8000 - 9FFF
+    memValue8_t _spriteAttrMemory[SIZE_OAM];    // FE00 - FE9F
+    //memValue8_t _internalRAM8kEcho[];         // E000 - FDFF
+    memValue8_t _internalRAM8k[SIZE_8KB];       // C000 - DFFF
+    memValue8_t _switchableRAM8k[SIZE_8KB];     // A000 - BFFF
+    memValue8_t _videoRAM8k[SIZE_8KB];          // 8000 - 9FFF
 
     // 32KB Cartridge
     Cartridge _cartridge;
