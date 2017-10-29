@@ -22,6 +22,8 @@ public:
     virtual string mnemonic() = 0;
 
     virtual uint8_t numParamBytes() = 0;
+
+    virtual uint8_t numDelayCycles() = 0;
 };
 
 
