@@ -81,14 +81,6 @@ bool GbaEmuCpu::run()
 Instruction * GbaEmuCpu::decode(memValue8_t opcode)
 {
     return instructions[opcode];
-    /*
-    for (uint16_t i = 0; i < instructions.size(); i++)
-    {
-        if (instructions[i].opcode() == opcode) {
-            return &instructions[i];
-        }
-    }
-    */
 }
 
 
