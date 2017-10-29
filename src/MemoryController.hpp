@@ -36,6 +36,16 @@ private:
     const int interruptEnableReg_addr   = 0xFFFF;
 
 /*
+0000, 0008, 0010, 0018, 0020, 0028, 0030, 0038    restart address for instructions RST $<addr>
+0040   Vertical Blank Interrupt Start Address
+0048   LCDC Status Interrupt Start Address
+0050   Timer Overflow Interrupt Start Address
+0058   Serial TRansfer Completion Interrupt Start Address
+0060   High-to-low of P10-P13 Interrupt Start Address
+*/
+
+
+/*
     enum
     {
         ROM16_ADDR              = 0x0000,
