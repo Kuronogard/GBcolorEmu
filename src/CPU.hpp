@@ -28,9 +28,9 @@ public:
 
     // SP grows downward in RAM memory.
     // It decrements automatically before something is put in it
-    regValue_t regA, regB, regC, regD, regE, regF;
-    regValue_t regH, regL;
-    doubleRegValue_t regSP, regPC;
+    regValue_t A, B, C, D, E, F;
+    regValue_t H, L;
+    doubleRegValue_t SP, PC;
 };
 
 
@@ -39,7 +39,7 @@ class GbaEmuCpu
 {
 private:
 
-
+    uint8_t delayCycles;
 
     vector<Instruction> instructions;
     registerBank registers;
@@ -49,6 +49,9 @@ public:
 
     GbaEmuCpu();
     ~GbaEmuCpu();
+
+    bool loadCartridge(Cartridge& cartridge);
+    Instruction decode(memValue8_t opcode);
 
     bool run();
 

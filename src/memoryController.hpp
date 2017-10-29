@@ -14,6 +14,15 @@ using memAddr_t = uint16_t;
 using memValue8_t = uint8_t;
 using memValue16_t = uint16_t;
 
+class Cartridge {
+public:
+    Cartridge();
+
+    vector<memValue8_t> switchableROM16k;    // 4000 - 7FFF
+    vector<memValue8_t> ROM16;               // 0000 - 3FFF
+};
+
+
 class MemoryController {
 private:
 
@@ -76,8 +85,9 @@ private:
     vector<memValue8_t> _videoRAM8k;          // 8000 - 9FFF
 
     // 32KB Cartridge
-    vector<memValue8_t> _switchableROM16k;    // 4000 - 7FFF
-    vector<memValue8_t> _ROM16;               // 0000 - 3FFF
+    Cartridge _cartridge;
+    //_cartridge.switchableROM16k;    // 4000 - 7FFF
+    //_cartridge.ROM16;               // 0000 - 3FFF
 
 
 public:
@@ -85,6 +95,7 @@ public:
     MemoryController();
     ~MemoryController();
 
+    bool configCartridge(Cartridge& cartridge);
     memValue8_t read(memAddr_t address);
     bool write(memAddr_t adress, memValue8_t value);
 
