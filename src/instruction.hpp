@@ -2,6 +2,7 @@
 #define __INSTRUCTION_H
 
 #include "memoryController.hpp"
+#include "CPU.hpp"
 
 
 namespace gbcoloremu
@@ -14,13 +15,13 @@ public:
     ~Instruction();
 
 
-    virtual bool execute() = 0;
+    virtual bool execute(registerBank &registers, MemoryController &memory, memValue16_t param) = 0;
 
     virtual memValue8_t opcode() = 0;
 
     virtual string mnemonic() = 0;
 
-    virtual uint8_t numParams() = 0;
+    virtual uint8_t numParamBytes() = 0;
 };
 
 
