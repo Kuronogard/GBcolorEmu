@@ -38,6 +38,10 @@ bool GbaEmuCpu::run()
 
         // compare it with the opcodes of the instructions until a match is found
         currentInstruction = decode(opcode);
+        if (currentInstruction == NULL)
+        {
+            return false;
+        }
 
         // wait the number of delay cycles
         delayCycles = currentInstruction->numDelayCycles();
@@ -76,8 +80,15 @@ bool GbaEmuCpu::run()
 
 Instruction * GbaEmuCpu::decode(memValue8_t opcode)
 {
-
-    return NULL;
+    return instructions[opcode];
+    /*
+    for (uint16_t i = 0; i < instructions.size(); i++)
+    {
+        if (instructions[i].opcode() == opcode) {
+            return &instructions[i];
+        }
+    }
+    */
 }
 
 
