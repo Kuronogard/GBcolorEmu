@@ -7,3 +7,7 @@ build/
 
 # qtcreator files
 *.user
+
+
+# ROMS
+ROMs
