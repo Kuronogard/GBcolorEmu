@@ -2,7 +2,15 @@
 #define LCDPALETTES_H
 
 
-namespace gbcolor {
+#include "memoryController.hpp"
+
+/*
+ * palettes for the LCD display
+ * It imitates the interface of the real hardware, so the memory controller
+ * does not need to know the meaning of any of the related registers.
+ */
+
+namespace gbcoloremu {
 
 
 class bwPalette
@@ -23,36 +31,41 @@ public:
     LCDpalettes();
 
 
-    void setBgPalette(uint8_t value);
-    void setObjPalette0(uint8_t value);
-    void setObjPalette1(uint8_t value);
+    void setBgPalette(memValue8_t value);
+    memValue8_t getBgPalette();
 
-    uint8_t getBgPalette();
-    uint8_t getObjPalette0();
-    uint8_t getObjPalette1();
+
+    void setObjPalette0(memValue8_t value);
+    memValue8_t getObjPalette0();
+
+
+    void setObjPalette1(memValue8_t value);
+    memValue8_t getObjPalette1();
 
 
     // set/get bg/obj color palette bytes indexed by
     // bg/obj Index variable
-    void setBgColorPalette(uint8_t value);
-    void setObjColorPalette(uint8_t value);
+    void setBgColorPalette(memValue8_t value);
+    memValue8_t getBgColorPalette();
 
-    uint8_t getBgColorPalette();
-    uint8_t getObjColorPalette();
 
+    void setObjColorPalette(memValue8_t value);
+    memValue8_t getObjColorPalette();
 
     // bg/obj indexes
-    void setbgColorIndex(uint8_t index);
-    void setObjColorIndex(uint8_t index);
+    void setbgColorIndex(memValue8_t index);
+    memValue8_t getbgColorIndex();
 
-    uint8_t getObjColorIndex();
-    uint8_t getObjColorIndex();
+
+    void setObjColorIndex(memValue8_t index);
+    memValue8_t getObjColorIndex();
+
 
     // Autoincrement option for writes in color bg/obj palettes
     void bgColorAutoincrement(bool autoincrement);
-    void objColorAutoincrement(bool autoincrement);
-
     bool bgColorAutoincrementOn();
+
+    void objColorAutoincrement(bool autoincrement);
     bool objColorAutoincrementOn();
 
 

@@ -93,6 +93,16 @@ private:
     //_cartridge.switchableROM16k;    // 4000 - 7FFF
     //_cartridge.ROM16;               // 0000 - 3FFF
 
+    /*
+     * FF47 bgPalette
+     * FF48 objPalette0
+     * FF49 objPalette1
+     * FF68 bgColorPaletteIndex
+     * FF69 bgColorPalette
+     * FF6A objColorPaletteIndex
+     * FF6B objColorPalette
+     */
+    LCDpalettes lcdPalettes;
 
 public:
 

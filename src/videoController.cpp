@@ -3,7 +3,7 @@
 namespace gbcoloremu
 {
 
-    VideoController::drawLine()
+    void VideoController::drawLine()
     {
         // iterate throught _bgMapX
             // take the corresponding tile (16bytes) from _charRAM
