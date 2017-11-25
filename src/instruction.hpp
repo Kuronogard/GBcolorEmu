@@ -22,13 +22,13 @@ private:
 
 public:
 
-    Instruction(string mnemonic, memValue8_t opcode, uint8_t numParamBytes, uint8_t numDelayCycles):
-        _mnemonic(mnemonic), _opcode(opcode), _numParamBytes(numParamBytes), _numDelayCycles(numDelayCycles)
+    Instruction(string mnemonic, uint8_t numParamBytes, uint8_t numDelayCycles):
+        _mnemonic(mnemonic), _numParamBytes(numParamBytes), _numDelayCycles(numDelayCycles)
     {}
 
-    virtual bool execute(RegisterBank &registers, MemoryController &memory, memValue16_t param) = 0;
+    virtual bool execute(RegisterBank &registers, MemoryController &memory, doubleRegValue_t PC, memValue8_t opcode) = 0;
 
-    string mnemonic()
+    string mnemonic(uint8_t opcode)
     {
         return _mnemonic;
     }
@@ -43,68 +43,47 @@ public:
         return _numDelayCycles;
     }
 
-    memValue8_t opcode()
-    {
-        return _opcode;
-    }
 };
 
-class Instr_LDBn: public Instruction
+
+/*=========================================================================================
+ *                          INSTRUCTIONS
+ *=========================================================================================
+ */
+
+
+
+class Instr_CB: public Instruction
 {
 public:
 
-    Instr_LDBn(): Instruction("LD B,n", 0x06, 1, 8){}
+    Instr_CB(): Instruction("PREFIX CB", 1, 8){}
 
-    virtual bool execute(RegisterBank &registers, MemoryController &memory, memValue16_t param)
+
+    virtual bool execute(RegisterBank &registers, MemoryController &memory, doubleRegValue_t pc, memValue8_t opcode )
     {
-        regValue_t value = param;
-        registers.B = memory.read(value);
-        return true;
-    }
-};
-
-class Instr_LDCn: public Instruction
-{
-public:
-
-    Instr_LDCn(): Instruction("LD C,n", 0x0E, 1, 8){}
-
-    virtual bool execute(RegisterBank &registers, MemoryController &memory, memValue16_t param)
-    {
-        regValue_t value = param;
-        registers.C = memory.read(value);
-        return true;
-    }
-};
-
-class Instr_LDDn: public Instruction
-{
-public:
-
-    Instr_LDDn(): Instruction("LD D,n", 0x16, 1, 8){}
-
-    virtual bool execute(RegisterBank &registers, MemoryController &memory, memValue16_t param)
-    {
-        regValue_t value = param;
-        registers.D = memory.read(value);
+        // read the next byte
+        // execute the corresponding 'PREFIX CB' instruction
         return true;
     }
 };
 
 
-class Instr_LDAA: public Instruction
+class Instr_RLC: public Instruction
 {
 public:
 
-    Instr_LDAA(): Instruction("LD A,A", 0x78, 0, 4){}
+    Instr_RLC(): Instruction("RLC", 1, 8){}
 
-    virtual bool execute(RegisterBank &registers, MemoryController &, memValue16_t)
+
+    virtual bool execute(RegisterBank &registers, MemoryController &memory, doubleRegValue_t pc, memValue8_t opcode )
     {
-        registers.A = registers.A;
+        regValue_t reg = opcode & 0x7;
+        regValue_t value = registers.getValue(reg);
+        registers.setValue(reg, value);
         return true;
     }
 };
-
 
 // TODO: Implement all the instructions
 

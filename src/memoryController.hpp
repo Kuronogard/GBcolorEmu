@@ -5,6 +5,9 @@
 #include <cstdint>
 #include <vector>
 
+#include "types.hpp"
+#include "lcdpalettes.hpp"
+
 using namespace std;
 
 #define SIZE_8KB  (8192)   // 2^3 * 2^10
@@ -14,10 +17,6 @@ using namespace std;
 
 namespace gbcoloremu
 {
-
-using memAddr_t = uint16_t;
-using memValue8_t = uint8_t;
-using memValue16_t = uint16_t;
 
 class Cartridge {
 public:
@@ -111,7 +110,10 @@ public:
 
     bool configCartridge(Cartridge& cartridge);
     memValue8_t read(memAddr_t address);
+    memValue16_t readDouble(memAddr_t address);
     bool write(memAddr_t adress, memValue8_t value);
+    bool writeDouble(memAddr_t address, memValue16_t value);
+
 
 };
 
