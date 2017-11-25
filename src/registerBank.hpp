@@ -29,6 +29,16 @@ public:
     doubleRegValue_t SP, PC;
 
 
+    void setFlagZ() {F = F | 0x80;}
+    void setFlagN() {F = F | 0x40;}
+    void setFlagH() {F = F | 0x20;}
+    void setFlagC() {F = F | 0x10;}
+
+    void resetFlagZ() {F = F & ~0x80;}
+    void resetFlagN() {F = F & ~0x40;}
+    void resetFlagH() {F = F & ~0x20;}
+    void resetFlagC() {F = F & ~0x10;}
+
     void setValue(uint8_t regNum, doubleRegValue_t value)
     {
         switch(regNum)
