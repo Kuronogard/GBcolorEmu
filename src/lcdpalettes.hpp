@@ -2,7 +2,7 @@
 #define LCDPALETTES_H
 
 
-#include "memoryController.hpp"
+#include "types.hpp"
 
 /*
  * palettes for the LCD display
