@@ -147,8 +147,11 @@ bool MemoryController::write(memAddr_t address, memValue8_t value)
 
 bool MemoryController::writeDouble(memAddr_t address, memValue16_t value)
 {
-    write(address, (memValue8_t)(value & 0x7));
-    write(address+1, (memValue8_t)((value >> 8) & 0x7));
+    bool success;
+    success = write(address, (memValue8_t)(value & 0x7));
+    success &= write(address+1, (memValue8_t)((value >> 8) & 0x7));
+
+    return success;
 }
 
 bool MemoryController::configCartridge(Cartridge& cartridge)
