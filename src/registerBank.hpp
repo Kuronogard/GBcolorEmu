@@ -39,6 +39,12 @@ public:
     void resetFlagH() {F = F & ~0x20;}
     void resetFlagC() {F = F & ~0x10;}
 
+    regValue_t getFlagZ() {return (F & 0x80) >> 7;}
+    regValue_t getFlagN() {return (F & 0x40) >> 6;}
+    regValue_t getFlagH() {return (F & 0x30) >> 5;}
+    regValue_t getFlagC() {return (F & 0x20) >> 4;}
+
+
     void setValue(uint8_t regNum, doubleRegValue_t value)
     {
         switch(regNum)
