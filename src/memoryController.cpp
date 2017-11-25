@@ -90,7 +90,7 @@ memValue8_t MemoryController::read(memAddr_t address)
 
 memValue16_t MemoryController::readDouble(memAddr_t address)
 {
-    return ((memValue16_t)read(address) << 8) | read(address+1);
+    return (memValue16_t)read(address) | (read(address+1) << 8);
 }
 
 
@@ -148,7 +148,7 @@ bool MemoryController::write(memAddr_t address, memValue8_t value)
 bool MemoryController::writeDouble(memAddr_t address, memValue16_t value)
 {
     write(address, (memValue8_t)(value & 0x7));
-    write(address, (memAddr_t)((value >> 8) & 0x7));
+    write(address+1, (memValue8_t)((value >> 8) & 0x7));
 }
 
 bool MemoryController::configCartridge(Cartridge& cartridge)
