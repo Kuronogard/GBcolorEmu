@@ -29,7 +29,7 @@ public:
     doubleRegValue_t SP, PC;
 
 
-    regValue_t setValue(uint8_t regNum, doubleRegValue_t value)
+    void setValue(uint8_t regNum, doubleRegValue_t value)
     {
         switch(regNum)
         {
@@ -52,8 +52,8 @@ public:
             L = value;
             break;
         case 0x6:
-            H = value >> 8;
-            L = value & 0xF;
+            cout << "Invalid write to register HL" << endl;
+            break;
         case 0x7:
             A = value;
         }
@@ -84,8 +84,8 @@ public:
             value = L;
             break;
         case 0x6:
-            value = H;
-            value = (value << 8) | L;
+            cout << "Invalid read from register HL" << endl;
+            break;
         case 0x7:
             value = A;
         }

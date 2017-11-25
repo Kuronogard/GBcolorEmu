@@ -30,7 +30,7 @@ public:
 
     string mnemonic(uint8_t opcode)
     {
-        return _mnemonic;
+        return "[" + to_string(opcode) + "]: " + _mnemonic;
     }
 
     uint8_t numParamBytes()
@@ -56,11 +56,8 @@ public:
 class Instr_CB: public Instruction
 {
 public:
-
     Instr_CB(): Instruction("PREFIX CB", 1, 8){}
-
-
-    virtual bool execute(RegisterBank &registers, MemoryController &memory, doubleRegValue_t pc, memValue8_t opcode )
+    virtual bool execute(RegisterBank &, MemoryController &, doubleRegValue_t , memValue8_t )
     {
         // read the next byte
         // execute the corresponding 'PREFIX CB' instruction
@@ -76,7 +73,7 @@ public:
     Instr_RLC(): Instruction("RLC", 1, 8){}
 
 
-    virtual bool execute(RegisterBank &registers, MemoryController &memory, doubleRegValue_t pc, memValue8_t opcode )
+    virtual bool execute(RegisterBank &registers, MemoryController &, doubleRegValue_t , memValue8_t opcode )
     {
         regValue_t reg = opcode & 0x7;
         regValue_t value = registers.getValue(reg);

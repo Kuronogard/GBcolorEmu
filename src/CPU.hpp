@@ -31,7 +31,7 @@ public:
 
     bool run();
 
-    bool initInstructions();
+    void initInstructions();
     void printInstructions();
     friend std::ostream &operator<<(std::ostream &os, const GbaEmuCpu& obj);
 

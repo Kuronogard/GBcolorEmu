@@ -129,7 +129,7 @@ void GbaEmuCpu::printInstructions()
     }
 }
 
-bool GbaEmuCpu::initInstructions()
+void GbaEmuCpu::initInstructions()
 {
     // clean instructions array
     for (int i  = 0; i < 256; i++) {
@@ -137,21 +137,26 @@ bool GbaEmuCpu::initInstructions()
     }
 
 
+    instructions[0x01] = new Instr_LD_rr_nn();
     instructions[0x02] = new Instr_LD_BC_A();
     instructions[0x06] = new Instr_LD_r_n();
+    instructions[0x08] = new Instr_LD_nn_SP();
     instructions[0x0A] = new Instr_LD_A_BC();
     instructions[0x0E] = instructions[0x06];
 
+    instructions[0x11] = instructions[0x01];
     instructions[0x12] = new Instr_LD_DE_A();
     instructions[0x16] = instructions[0x06];
     instructions[0x1A] = new Instr_LD_A_DE();
     instructions[0x1E] = instructions[0x06];
 
+    instructions[0x21] = instructions[0x01];
     instructions[0x22] = new Instr_LDI_HL_A();  // LD (HL+), A
     instructions[0x26] = instructions[0x06];
     instructions[0x2A] = new Instr_LDI_A_HL;  // LD A, (HL+)
     instructions[0x2E] = instructions[0x06];
 
+    instructions[0x31] = instructions[0x01];
     instructions[0x32] = new Instr_LDD_HL_A();  // LD (HL-), A
     instructions[0x36] = new Instr_LD_HL_n();
     instructions[0x3A] = new Instr_LDD_A_HL();  // LD A, (HL-)

@@ -22,7 +22,7 @@ void createProgram(Cartridge &cartridge) {
 
 
 
-int main(int argc, char *argv[])
+int main(int , char **)
 {
     bool runSuccess;
     GbaEmuCpu cpu = GbaEmuCpu();
