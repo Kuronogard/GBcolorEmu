@@ -143,6 +143,7 @@ void GbaEmuCpu::initInstructions()
     instructions[0x04] = new Instr_INC_r();
     instructions[0x05] = new Instr_DEC_r();
     instructions[0x06] = new Instr_LD_r_n();
+    instructions[0x07] = new Instr_RLCA();
     instructions[0x08] = new Instr_LD_nn_SP();
     instructions[0x09] = new Instr_ADD_HL_rr();
     instructions[0x0A] = new Instr_LD_A_BC();
@@ -150,6 +151,7 @@ void GbaEmuCpu::initInstructions()
     instructions[0x0C] = instructions[0x04];
     instructions[0x0D] = instructions[0x05];
     instructions[0x0E] = instructions[0x06];
+    instructions[0x0F] = new Instr_RRCA();
 
     instructions[0x11] = instructions[0x01];
     instructions[0x12] = new Instr_LD_DE_A();
@@ -157,6 +159,7 @@ void GbaEmuCpu::initInstructions()
     instructions[0x14] = instructions[0x04];
     instructions[0x15] = instructions[0x05];
     instructions[0x16] = instructions[0x06];
+    instructions[0x17] = new Instr_RLA();
     instructions[0x18] = new Instr_JR_n();
     instructions[0x19] = instructions[0x09];
     instructions[0x1A] = new Instr_LD_A_DE();
@@ -164,6 +167,7 @@ void GbaEmuCpu::initInstructions()
     instructions[0x1C] = instructions[0x04];
     instructions[0x1D] = instructions[0x05];
     instructions[0x1E] = instructions[0x06];
+    instructions[0x1F] = new Instr_RRA();
 
     instructions[0x20] = new Instr_JR_NZ_n();
     instructions[0x21] = instructions[0x01];
