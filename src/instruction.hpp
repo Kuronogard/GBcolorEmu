@@ -2,7 +2,6 @@
 #define __INSTRUCTION_H
 
 #include "memoryController.hpp"
-#include "CPU.hpp"
 #include "registerBank.hpp"
 #include <string>
 

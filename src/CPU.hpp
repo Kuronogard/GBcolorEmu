@@ -1,4 +1,3 @@
-
 #ifndef __CPU_HPP
 #define __CPU_HPP
 
@@ -9,7 +8,7 @@
 #include "registerBank.hpp"
 #include "instruction.hpp"
 #include "ldInstructions.hpp"
-
+#include "arithInstructions.hpp"
 
 #define DEFAULT_FREQ_MHZ (4.194304)
 
