@@ -9,6 +9,7 @@
 #include "instruction.hpp"
 #include "ldInstructions.hpp"
 #include "arithInstructions.hpp"
+#include "flowInstructions.hpp"
 
 #define DEFAULT_FREQ_MHZ (4.194304)
 
