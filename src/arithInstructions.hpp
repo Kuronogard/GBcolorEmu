@@ -284,6 +284,14 @@ public:
     virtual bool execute(RegisterBank &registers, MemoryController &, doubleRegValue_t pc, memValue8_t opcode);
 };
 
+
+class Instr_ADD_SP_n: public Instruction
+{
+public:
+    Instr_ADD_SP_n(): Instruction("ADD SP,n", 1, 8){}
+    virtual bool execute(RegisterBank &registers, MemoryController &, doubleRegValue_t pc, memValue8_t opcode);
+};
+
 } /* namespace gbcoloremu */
 
 #endif /* __ARITHINSTRUCTION_H */

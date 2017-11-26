@@ -120,12 +120,12 @@ void GbaEmuCpu::printInstructions()
         for (int r = 0; r <= 0xF; r++) {
             int i = (c << 4) | r;
             if (instructions[i] == NULL)
-                printf("[%02x]: %-20s", i, "(EMPTY)");
+                printf("[%02x]: %-5s", i, "O");
             else
-                printf("[%02x]: %-20s", i, instructions[i]->mnemonic(i).data());
-            printf("\n");
+                printf("[%02x]: %-5s", i, instructions[i]->mnemonic(i).data());
+            //printf("\n");
         }
-        //printf("\n");
+        printf("\n");
     }
 }
 
@@ -139,28 +139,60 @@ void GbaEmuCpu::initInstructions()
 
     instructions[0x01] = new Instr_LD_rr_nn();
     instructions[0x02] = new Instr_LD_BC_A();
+    instructions[0x03] = new Instr_INC_rr();
+    instructions[0x04] = new Instr_INC_r();
+    instructions[0x05] = new Instr_DEC_r();
     instructions[0x06] = new Instr_LD_r_n();
     instructions[0x08] = new Instr_LD_nn_SP();
+    instructions[0x09] = new Instr_ADD_HL_rr();
     instructions[0x0A] = new Instr_LD_A_BC();
+    instructions[0x0B] = new Instr_DEC_rr();
+    instructions[0x0C] = instructions[0x04];
+    instructions[0x0D] = instructions[0x05];
     instructions[0x0E] = instructions[0x06];
 
     instructions[0x11] = instructions[0x01];
     instructions[0x12] = new Instr_LD_DE_A();
+    instructions[0x13] = instructions[0x03];
+    instructions[0x14] = instructions[0x04];
+    instructions[0x15] = instructions[0x05];
     instructions[0x16] = instructions[0x06];
+    instructions[0x19] = instructions[0x09];
     instructions[0x1A] = new Instr_LD_A_DE();
+    instructions[0x1B] = instructions[0x0B];
+    instructions[0x1C] = instructions[0x04];
+    instructions[0x1D] = instructions[0x05];
     instructions[0x1E] = instructions[0x06];
 
     instructions[0x21] = instructions[0x01];
     instructions[0x22] = new Instr_LDI_HL_A();  // LD (HL+), A
+    instructions[0x23] = instructions[0x03];
+    instructions[0x24] = instructions[0x04];
+    instructions[0x25] = instructions[0x05];
     instructions[0x26] = instructions[0x06];
+    instructions[0x27] = new Instr_DAA();
+    instructions[0x29] = instructions[0x09];
     instructions[0x2A] = new Instr_LDI_A_HL;  // LD A, (HL+)
+    instructions[0x2B] = instructions[0x0B];
+    instructions[0x2C] = instructions[0x04];
+    instructions[0x2D] = instructions[0x05];
     instructions[0x2E] = instructions[0x06];
+    instructions[0x2F] = new Instr_CPL();
 
     instructions[0x31] = instructions[0x01];
     instructions[0x32] = new Instr_LDD_HL_A();  // LD (HL-), A
+    instructions[0x33] = instructions[0x03];
+    instructions[0x34] = new Instr_INC_HL();
+    instructions[0x35] = new Instr_DEC_HL();
     instructions[0x36] = new Instr_LD_HL_n();
+    instructions[0x37] = new Instr_SCF();
+    instructions[0x39] = instructions[0x09];
     instructions[0x3A] = new Instr_LDD_A_HL();  // LD A, (HL-)
+    instructions[0x3B] = instructions[0x0B];
+    instructions[0x3C] = instructions[0x04];
+    instructions[0x3D] = instructions[0x05];
     instructions[0x3E] = instructions[0x06];
+    instructions[0x3F] = new Instr_CCF();
 
     instructions[0x40] = new Instr_LD_r_r();
     instructions[0x41] = instructions[0x40];
@@ -178,6 +210,7 @@ void GbaEmuCpu::initInstructions()
     instructions[0x4D] = instructions[0x40];
     instructions[0x4E] = instructions[0x46];
     instructions[0x4F] = instructions[0x40];
+
     instructions[0x50] = instructions[0x40];
     instructions[0x51] = instructions[0x40];
     instructions[0x52] = instructions[0x40];
@@ -194,6 +227,7 @@ void GbaEmuCpu::initInstructions()
     instructions[0x5D] = instructions[0x40];
     instructions[0x5E] = instructions[0x46];
     instructions[0x5F] = instructions[0x40];
+
     instructions[0x60] = instructions[0x40];
     instructions[0x61] = instructions[0x40];
     instructions[0x62] = instructions[0x40];
@@ -210,6 +244,7 @@ void GbaEmuCpu::initInstructions()
     instructions[0x6D] = instructions[0x40];
     instructions[0x6E] = instructions[0x46];
     instructions[0x6F] = instructions[0x40];
+
     instructions[0x70] = new Instr_LD_HL_r();
     instructions[0x71] = instructions[0x70];
     instructions[0x72] = instructions[0x70];
@@ -227,24 +262,102 @@ void GbaEmuCpu::initInstructions()
     instructions[0x7E] = instructions[0x46];
     instructions[0x7F] = instructions[0x40];
 
+    instructions[0x80] = new Instr_ADD_A_r();
+    instructions[0x81] = instructions[0x80];
+    instructions[0x82] = instructions[0x80];
+    instructions[0x83] = instructions[0x80];
+    instructions[0x84] = instructions[0x80];
+    instructions[0x85] = instructions[0x80];
+    instructions[0x86] = new Instr_ADD_A_HL();
+    instructions[0x87] = instructions[0x80];
+    instructions[0x88] = new Instr_ADC_A_r();
+    instructions[0x89] = instructions[0x88];
+    instructions[0x8A] = instructions[0x88];
+    instructions[0x8B] = instructions[0x88];
+    instructions[0x8C] = instructions[0x88];
+    instructions[0x8D] = instructions[0x88];
+    instructions[0x8E] = new Instr_ADC_A_HL();
+    instructions[0x8F] = instructions[0x88];
+
+    instructions[0x90] = new Instr_SUB_A_r();
+    instructions[0x91] = instructions[0x90];
+    instructions[0x92] = instructions[0x90];
+    instructions[0x93] = instructions[0x90];
+    instructions[0x94] = instructions[0x90];
+    instructions[0x95] = instructions[0x90];
+    instructions[0x96] = new Instr_SUB_A_HL();
+    instructions[0x97] = instructions[0x90];
+    instructions[0x98] = new Instr_SBC_A_r();
+    instructions[0x99] = instructions[0x98];
+    instructions[0x9A] = instructions[0x98];
+    instructions[0x9B] = instructions[0x98];
+    instructions[0x9C] = instructions[0x98];
+    instructions[0x9D] = instructions[0x98];
+    instructions[0x9E] = new Instr_SBC_A_HL();
+    instructions[0x9F] = instructions[0x98];
+
+    instructions[0xA0] = new Instr_AND_A_r();
+    instructions[0xA1] = instructions[0xA0];
+    instructions[0xA2] = instructions[0xA0];
+    instructions[0xA3] = instructions[0xA0];
+    instructions[0xA4] = instructions[0xA0];
+    instructions[0xA5] = instructions[0xA0];
+    instructions[0xA6] = new Instr_AND_A_HL();
+    instructions[0xA7] = instructions[0xA0];
+    instructions[0xA8] = new Instr_XOR_A_r();
+    instructions[0xA9] = instructions[0xA8];
+    instructions[0xAA] = instructions[0xA8];
+    instructions[0xAB] = instructions[0xA8];
+    instructions[0xAC] = instructions[0xA8];
+    instructions[0xAD] = instructions[0xA8];
+    instructions[0xAE] = new Instr_XOR_A_HL();
+    instructions[0xAF] = instructions[0xA8];
+
+    instructions[0xB0] = new Instr_OR_A_r();
+    instructions[0xB1] = instructions[0xB0];
+    instructions[0xB2] = instructions[0xB0];
+    instructions[0xB3] = instructions[0xB0];
+    instructions[0xB4] = instructions[0xB0];
+    instructions[0xB5] = instructions[0xB0];
+    instructions[0xB6] = new Instr_OR_A_HL();
+    instructions[0xB7] = instructions[0xB0];
+    instructions[0xB8] = new Instr_CP_A_r();
+    instructions[0xB9] = instructions[0xB8];
+    instructions[0xBA] = instructions[0xB8];
+    instructions[0xBB] = instructions[0xB8];
+    instructions[0xBC] = instructions[0xB8];
+    instructions[0xBD] = instructions[0xB8];
+    instructions[0xBE] = new Instr_CP_A_HL();
+    instructions[0xBF] = instructions[0xB8];
+
     instructions[0xC1] = new Instr_POP();
     instructions[0xC5] = new Instr_PUSH();
+    instructions[0xC6] = new Instr_ADD_A_n();
+    instructions[0xCE] = new Instr_ADC_A_n();
 
     instructions[0xD1] = instructions[0xC1];
     instructions[0xD5] = instructions[0xC5];
+    instructions[0xD6] = new Instr_SUB_A_n();
+    instructions[0xDE] = new Instr_SBC_A_n();
 
     instructions[0xE0] = new Instr_LD_io_A();
     instructions[0xE1] = instructions[0xC1];
     instructions[0xE2] = new Instr_LD_C_A(); // LD  (C), A
     instructions[0xE5] = instructions[0xC5];
     instructions[0xEA] = new Instr_LD_nn_A();
+    instructions[0xE6] = new Instr_AND_A_n();
+    instructions[0xE8] = new Instr_ADD_SP_n();
+    instructions[0xEE] = new Instr_XOR_A_n();
+
     instructions[0xF0] = new Instr_LD_A_io();
     instructions[0xF1] = instructions[0xC1];
     instructions[0xF2] = new Instr_LD_A_C();
     instructions[0xF5] = instructions[0xC5];
+    instructions[0xF6] = new Instr_OR_A_n();
     instructions[0xF8] = new Instr_LD_HL_SP();
     instructions[0xF9] = new Instr_LD_SP_HL();
     instructions[0xFA] = new Instr_LD_A_nn();
+    instructions[0xFE] = new Instr_CP_A_n();
 }
 
 

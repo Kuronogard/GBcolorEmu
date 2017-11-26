@@ -519,4 +519,21 @@ bool Instr_DEC_rr::execute(RegisterBank &registers, MemoryController &, doubleRe
     return true;
 }
 
+
+bool Instr_ADD_SP_n::execute(RegisterBank &registers, MemoryController &memory, doubleRegValue_t pc, memValue8_t )
+{
+    regValue_t regValue = memory.read(pc+1);
+    registers.resetFlagZ();
+    registers.resetFlagN();
+
+    if (((registers.SP & 0xF) + (regValue & 0xF)) & 0x10) registers.setFlagH();
+    else registers.resetFlagH();
+
+    if (((int)registers.SP + (int)regValue) & ~0x0FF) registers.setFlagC();
+    else registers.resetFlagC();
+
+    registers.SP = registers.SP + regValue;
+    return true;
+}
+
 } /* namespace gbcoloremu */
