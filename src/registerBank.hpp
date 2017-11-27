@@ -28,6 +28,9 @@ public:
     regValue_t H, L;
     doubleRegValue_t SP, PC;
 
+    regValue_t cpuHalted;
+    regValue_t cpuStopped;
+    regValue_t intEnabled;
 
     void setFlagZ() {F = F | 0x80;}
     void setFlagN() {F = F | 0x40;}

@@ -9,15 +9,15 @@ bool Instr_NOP::execute(RegisterBank &, MemoryController &, doubleRegValue_t , m
     return true;
 }
 
-bool Instr_STOP::execute(RegisterBank &, MemoryController &, doubleRegValue_t , memValue8_t )
+bool Instr_STOP::execute(RegisterBank &registers, MemoryController &, doubleRegValue_t , memValue8_t )
 {
-    // Halt CPU
+    registers.cpuStopped = 1;
     return true;
 }
 
-bool Instr_HALT::execute(RegisterBank &, MemoryController &, doubleRegValue_t , memValue8_t )
+bool Instr_HALT::execute(RegisterBank &registers, MemoryController &, doubleRegValue_t , memValue8_t )
 {
-    // Halt CPU until an interrupt occurs
+    registers.cpuHalted = 1;
     return true;
 }
 
@@ -28,16 +28,16 @@ bool Instr_PREFIX_CB::execute(RegisterBank &, MemoryController &, doubleRegValue
     return true;
 }
 
-bool Instr_DI::execute(RegisterBank &, MemoryController &, doubleRegValue_t , memValue8_t )
+bool Instr_DI::execute(RegisterBank &registers, MemoryController &, doubleRegValue_t , memValue8_t )
 {
-    // Disable interrupts
+    registers.intEnabled = 0;
     return true;
 }
 
 
-bool Instr_EI::execute(RegisterBank &, MemoryController &, doubleRegValue_t , memValue8_t )
+bool Instr_EI::execute(RegisterBank &registers, MemoryController &, doubleRegValue_t , memValue8_t )
 {
-    // Enable interrupts
+    registers.intEnabled = 1;
     return true;
 }
 

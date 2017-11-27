@@ -11,6 +11,7 @@
 #include "arithInstructions.hpp"
 #include "flowInstructions.hpp"
 #include "shiftInstructions.hpp"
+#include "miscInstructions.hpp"
 
 #define DEFAULT_FREQ_MHZ (4.194304)
 

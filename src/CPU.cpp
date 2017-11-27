@@ -136,7 +136,7 @@ void GbaEmuCpu::initInstructions()
         instructions[i] = NULL;
     }
 
-
+    instructions[0x00] = new Instr_NOP();
     instructions[0x01] = new Instr_LD_rr_nn();
     instructions[0x02] = new Instr_LD_BC_A();
     instructions[0x03] = new Instr_INC_rr();
@@ -153,6 +153,7 @@ void GbaEmuCpu::initInstructions()
     instructions[0x0E] = instructions[0x06];
     instructions[0x0F] = new Instr_RRCA();
 
+    instructions[0x10] = new Instr_STOP();
     instructions[0x11] = instructions[0x01];
     instructions[0x12] = new Instr_LD_DE_A();
     instructions[0x13] = instructions[0x03];
@@ -260,7 +261,7 @@ void GbaEmuCpu::initInstructions()
     instructions[0x73] = instructions[0x70];
     instructions[0x74] = instructions[0x70];
     instructions[0x75] = instructions[0x70];
-    instructions[0x76] = NULL; // HALT
+    instructions[0x76] = new Instr_HALT(); // HALT
     instructions[0x77] = instructions[0x70];
     instructions[0x78] = instructions[0x40];
     instructions[0x79] = instructions[0x40];
@@ -350,6 +351,7 @@ void GbaEmuCpu::initInstructions()
     instructions[0xC8] = new Instr_RET_Z();
     instructions[0xC9] = new Instr_RET();
     instructions[0xCA] = new Instr_JP_Z_nn();
+    //instructions[0xCB] = new Instr_PREFIX_CB();
     instructions[0xCC] = new Instr_CALL_Z_nn();
     instructions[0xCD] = new Instr_CALL_nn();
     instructions[0xCE] = new Instr_ADC_A_n();
@@ -384,12 +386,14 @@ void GbaEmuCpu::initInstructions()
     instructions[0xF0] = new Instr_LD_A_io();
     instructions[0xF1] = instructions[0xC1];
     instructions[0xF2] = new Instr_LD_A_C();
+    instructions[0xF4] = new Instr_DI();
     instructions[0xF5] = instructions[0xC5];
     instructions[0xF6] = new Instr_OR_A_n();
     instructions[0xF7] = new Instr_RST_30();
     instructions[0xF8] = new Instr_LD_HL_SP();
     instructions[0xF9] = new Instr_LD_SP_HL();
     instructions[0xFA] = new Instr_LD_A_nn();
+    instructions[0xFB] = new Instr_EI();
     instructions[0xFE] = new Instr_CP_A_n();
     instructions[0xFF] = new Instr_RST_38();
 }
